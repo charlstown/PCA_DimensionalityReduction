@@ -9,9 +9,11 @@ The mainfold assumption is often accompained by another implicit assumption: tha
 ![Mainfold](https://miro.medium.com/max/5068/1*3BKPV8eqVKXIkEY6h84GtQ.png)
 
 ## PCA: Principal Component Analysis
+
 Is by far the most popular dimensionality reduction algorithm. First identifies the hyperplane that lies closest to the data, and then it projects the data onto it.
 
 ### Preserving the variance:
+
 Before we can project the training set onto a lower-dimensional hyperplane, you first need to choose the right hyperplane. It seems reasonable to select the axis that preserves the maximum amount of variance, as will most likely lose less information than other projections. Another way to justify this choice is that it is the axis that minimizes the mean squared distance between the original dataset and its projection onto that axis. This is the rather simple idea behind PCA.
 
 Further reading here: https://www.tandfonline.com/doi/abs/10.1080/14786440109462720
@@ -19,6 +21,7 @@ Further reading here: https://www.tandfonline.com/doi/abs/10.1080/14786440109462
 ![Maximum variance](https://upload.wikimedia.org/wikipedia/commons/f/f5/GaussianScatterPCA.svg)
 
 ### Principal components:
+
 PCA identifies the axis that accounts for the largest amount of variance in the training set. The unit vector that defines the ith axis is called the ith principal component (PC). In the figure above the first two PCs are represented by the ortogonal arrows in the plane, and the third PC would be orthogonal to the plane.
 
 To find the PCs of a training set there is a standard matrix factorization technique called *Singular Value Decomposition* (SDV) that can decompose the traning set matrix into the matrix multiplication of three matrices.
@@ -46,6 +49,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 Iris plants dataset
 --------------------
+
 The famous Iris database, first used by Sir R.A. Fisher. The dataset is taken
 from Fisher's paper. Note that it's the same as in R, but not as in the UCI
 Machine Learning Repository, which has two wrong data points.
@@ -65,7 +69,7 @@ Machine Learning Repository, which has two wrong data points.
                 - Iris-Virginica
                 
     :Summary Statistics:
-
+    
     ============== ==== ==== ======= ===== ====================
                     Min  Max   Mean    SD   Class Correlation
     ============== ==== ==== ======= ===== ====================
@@ -74,8 +78,9 @@ Machine Learning Repository, which has two wrong data points.
     petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)
     petal width:    0.1  2.5   1.20   0.76    0.9565  (high!)
     ============== ==== ==== ======= ===== ====================
-    
-    
+
+
+​    
 
 ### 01. Loading the dataset
 
@@ -123,6 +128,7 @@ print('The iris PCs array has {} rows by {} columns'.format(shape_pcs[0], shape_
 
 
 ### 03. Projecting Down to d Dimensions
+
 Once you have identified all the principal components, you can reduce the dimensionality of the dataset down to d dimensions by projecting it onto the hyperplane defined by the first d principal components. Selecting this hyperplane ensures that the projection will preserve as much variance as possible.
 
 For example in the below figure the 3D dataset is projected down to the 2D plane. As a result, the 2D projection looks very much like the original 3D dataset.
@@ -169,7 +175,7 @@ plt.show()
 ```
 
 
-![png](output_19_0.png)
+![png](/home/carlos/.cache/.fr-4YoUpY/output_19_0.png)
 
 
 ### 04. Using Scikit-Learn for PCA
@@ -198,6 +204,7 @@ print('The PC2 is c1 = {}'.format(c2))
 
 
 ### 05. Explained Variance Ratio
+
 The explained variance ratio indicates the proportion of the dataset's variance that lies along the axis of each principal component. Following the 'iris' example lets see the PCs variance.
 
 
@@ -222,6 +229,7 @@ print('With this PCA we are able to see the {}% of the variance, loosing only a 
 This tells us that 92.5% of the dataset's variance lies along the first axis, and 5.3% lies along the second axis. This leaves less than 2.2% for the third axis, so it is reasonable to assume that it probably carries little information.
 
 ### 06. Choosing the Right Number of Dimensions:
+
 Instead of arbitarily choosing the number of dimensions to reduce down to, it is generally preferable to choose the number of dimensions that add up to a sufficiently large portion of the variance (e.g., 95%).
 
 The following code computes PCA without reducing the dimensionality, then computes the minimum number of dimensions required to preserve 95% of the training set's variance.
@@ -247,6 +255,7 @@ print('The reduced iris dataframe has {} rows with {} columns after the PCA'.for
 </div>
 
 ### 07. PCA for compression
+
 Obviusly after dimensionality reduction, the training set takes up much less space. For example, when applying PCA to a 10 pictures dataset while preserving the 80% of its variance. We find that each instance will have just 960 thousand features, instead of the original 1,2 million features. The dataset is now less than 20% of its original size. This is a reasonable compression ratio for speed up a classification algorithim.
 
 It is also possible to decompress the reduced dataset back to 1,2 million features by applying the inverse transformation of the PCA projection. Of course this wont give you back the original data, since the projection lost a bit of information, but it will likely be quite close to the original data.
@@ -322,6 +331,7 @@ def load_img(path):
 ```
 
 ### 01. Loading the images
+
 As you can see, 10 pictures in PNG format are loaded in a data frame locating each picture by one row and one column for each of the pixels that compound the image. The final data frame has 5 rows x 1200000 columns
 
 
@@ -371,6 +381,7 @@ print(df.head())
 
 
 ### 02. Visualizing the original pictures
+
 Here we can see the original 10 pictures in B&W with the same resolution 1000x1200 px.
 
 
@@ -379,10 +390,11 @@ view(df)
 ```
 
 
-![png](output_40_0.png)
+![png](/home/carlos/.cache/.fr-4YoUpY/output_40_0.png)
 
 
 ### 03. Appliying PCA
+
 We apply PCA forcing the analysis to preserve the 80% of the variance at least.
 
 
@@ -415,6 +427,7 @@ print(shape_vectors)
 We can see how our original Dataset with 10 rows and 1.200.000 columns becomes the product array of the Principal components (10 rows and 5 columns) and the eigen vectos (5 columns and 1.200.000 rows)
 
 ### 04. Visualizing Eigenvectors
+
 These eigenvectors contain the maximum possible variance from the original pictures preserving at least 80% of this variance.
 
 
@@ -423,7 +436,7 @@ view_pca(df_vectors, shape_vectors[0])
 ```
 
 
-![png](output_47_0.png)
+![png](/home/carlos/.cache/.fr-4YoUpY/output_47_0.png)
 
 
 ### 05. Getting the real reconstruction error
@@ -456,6 +469,7 @@ print('With these {} PCs we are able to see the {}% of the variance, loosing onl
 With these Eigenvectors it is possible to redraw any of the faces on the dataset by executing transform of the PCA object to get the Eigenvectors out, and then inverse_transform on the Eigenvectors to get all the original images:
 
 ### 06. Visualizing the reconstructed images
+
 After the PCA we can see that we recover the 10 images losing 14.9% of the variance from the original dataset.
 
 
@@ -471,11 +485,18 @@ view(df_recover)
 
 
 
-![png](output_52_1.png)
+![png](/home/carlos/.cache/.fr-4YoUpY/output_52_1.png)
 
 
 As they where redrawn from the Eigenvectors with 85% of the variation in the dataset, the resulting images lost 15% of their definition.
 
+### 07. Visualizing lost of variance
+
+On the figures below you can see the result of different PCAs progression preserving from 40% to 90% of the variance.
+
+![variance](/home/carlos/.cache/.fr-4YoUpY/facesVariance.png)
+
 ## References
+
 https://medium.com/@sebastiannorena/pca-principal-components-analysis-applied-to-images-of-faces-d2fc2c083371
 https://towardsdatascience.com/reshaping-numpy-arrays-in-python-a-step-by-step-pictorial-tutorial-aed5f471cf0b
