@@ -175,7 +175,7 @@ plt.show()
 ```
 
 
-![png](/home/carlos/.cache/.fr-4YoUpY/output_19_0.png)
+![png](output_19_0.png)
 
 
 ### 04. Using Scikit-Learn for PCA
@@ -390,7 +390,7 @@ view(df)
 ```
 
 
-![png](/home/carlos/.cache/.fr-4YoUpY/output_40_0.png)
+![png](output_40_0.png)
 
 
 ### 03. Appliying PCA
@@ -436,7 +436,7 @@ view_pca(df_vectors, shape_vectors[0])
 ```
 
 
-![png](/home/carlos/.cache/.fr-4YoUpY/output_47_0.png)
+![png](output_47_0.png)
 
 
 ### 05. Getting the real reconstruction error
@@ -485,7 +485,7 @@ view(df_recover)
 
 
 
-![png](/home/carlos/.cache/.fr-4YoUpY/output_52_1.png)
+![png](output_52_1.png)
 
 
 As they where redrawn from the Eigenvectors with 85% of the variation in the dataset, the resulting images lost 15% of their definition.
@@ -494,7 +494,7 @@ As they where redrawn from the Eigenvectors with 85% of the variation in the dat
 
 On the figures below you can see the result of different PCAs progression preserving from 40% to 90% of the variance.
 
-![variance](/home/carlos/.cache/.fr-4YoUpY/facesVariance.png)
+![variance](facesVariance.png)
 
 ## References
 
